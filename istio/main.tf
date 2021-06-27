@@ -54,7 +54,7 @@ resource "kubernetes_namespace" "istioinaction" {
   }
 }
 
-resource "helm_release" "istio_operator" {
+resource "helm_release" "istio-operator" {
   name       = "istio_operator"
   chart      = "release/manifests/charts/istio-operator"
   namespace  = "istio-system"
