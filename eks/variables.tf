@@ -2,6 +2,10 @@ variable "region" {
   default = "us-east-1"
 }
 
+variable "cluster_name" {
+  default = "test-cluster"
+}
+
 variable "map_accounts" {
   description = "Additional AWS account numbers to add to the aws-auth configmap."
   type        = list(string)
