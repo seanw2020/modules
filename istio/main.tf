@@ -107,28 +107,28 @@ resource "kubernetes_namespace" "istioinaction" {
 
 resource "helm_release" "istio_base" {
   name       = "istio-base"
-  chart      = "./release/manifests/charts/base"
+  chart      = "release/manifests/charts/base"
   namespace  = "istio-system"
   create_namespace = true
 }
 
 resource "helm_release" "istiod" {
   name       = "istiod"
-  chart      = "./release/manifests/charts/istio-control/istio-discovery"
+  chart      = "release/manifests/charts/istio-control/istio-discovery"
   namespace  = "istio-system"
   create_namespace = true
 }
 
 resource "helm_release" "istio-ingress" {
   name       = "istio-ingress"
-  chart      = "./release/manifests/charts/gateways/istio-ingress"
+  chart      = "release/manifests/charts/gateways/istio-ingress"
   namespace  = "istio-system"
   create_namespace = true
 }
 
 resource "helm_release" "istio-egress" {
   name       = "istio-egress"
-  chart      = "./release/manifests/charts/gateways/istio-egress"
+  chart      = "release/manifests/charts/gateways/istio-egress"
   create_namespace = true
 }
 
