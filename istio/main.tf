@@ -66,21 +66,21 @@ resource "helm_release" "istio-operator" {
   namespace  = "istio-system"
   create_namespace = true
 
-  # values = [
-  #   file("${path.module}/configure.yaml")
-  # ]
+  values = [
+    file("${path.module}/operator.yaml")
+  ]
 }
 
-provider "kubectl" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  exec {
-    api_version = "client.authentication.k8s.io/v1alpha1"
-    args = ["eks", "get-token", "--cluster-name", var.cluster_name]
-    command = "aws"
-  }
-}
+# provider "kubectl" {
+#   host                   = data.aws_eks_cluster.cluster.endpoint
+#   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+#   exec {
+#     api_version = "client.authentication.k8s.io/v1alpha1"
+#     args = ["eks", "get-token", "--cluster-name", var.cluster_name]
+#     command = "aws"
+#   }
+# }
 
-resource "kubectl_manifest" "operator" {
-    yaml_body = file("${path.module}/configure.yaml")
-}
+# resource "kubectl_manifest" "operator" {
+#     yaml_body = file("${path.module}/configure.yaml")
+# }

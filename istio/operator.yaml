@@ -1,0 +1,60 @@
+# override default values.yaml in istio release's helm chart
+# i.e., release/manifests/charts/istio-operator/values.yaml
+#
+# this configures the operator and thus istio
+hub: gcr.io/istio-testing
+tag: latest
+
+# ImagePullSecrets for operator ServiceAccount, list of secrets in the same namespace
+# used to pull operator image. Must be set for any cluster configured with private docker registry.
+imagePullSecrets: []
+
+operatorNamespace: istio-operator
+
+# Used to replace istioNamespace to support operator watch multiple namespaces.
+watchedNamespaces: istio-operator,istio-system
+waitForResourcesTimeout: 300s
+
+# Used for helm2 to add the CRDs to templates.
+enableCRDTemplates: false
+
+# revision for the operator resources
+revision: ""
+operator:
+  profile: demo
+  values:
+    global:
+      istioNamespace: istio-system
+  meshconfig:
+    accessLogFile: /dev/stdout
+    enableTracing: true
+    # defaultConfig:
+    #   tracing:
+    #     sampling: 100
+  components:
+    egressGateways:
+    - name: istio-egressgateway
+      enabled: false
+    ingressGateways:
+    - name: istio-ingressgateway
+      enabled: true
+      # k8s:
+      #   resources:
+      #     limits:
+      #       memory: "200Mi"
+      #       cpu: "250m"
+    pilot:
+    - name: pilot
+      enabled: true
+      # k8s:
+      #   resources:
+      #     requests:
+      #       cpu: 50m
+      #       memory: 300Mi
+  addonComponents:
+    prometheus:
+      enabled: true
+    grafana:
+      enabled: true
+    kiali:
+      enabled: true
