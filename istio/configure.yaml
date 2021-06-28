@@ -1,0 +1,47 @@
+# override default values.yaml in istio release's helm chart
+# i.e., release/manifests/charts/istio-operator/values.yaml
+#
+# this configures the operator and thus istio
+operator:
+  profile: demo
+  meshconfig:
+    accessLogFile: /dev/stdout
+    enableTracing: true
+    # defaultConfig:
+    #   tracing:
+    #     sampling: 100
+  # resources:
+  #   limits:
+  #     cpu: 200m
+  #     memory: 256Mi
+  #   requests:
+  #     cpu: 50m
+  #     memory: 128Mi
+  components:
+    egressGateways:
+    - name: istio-egressgateway
+      enabled: false
+    ingressGateways:
+    - name: istio-ingressgateway
+      k8s:
+        resources:
+          limits:
+            memory: "200Mi"
+            cpu: "250m"
+    pilot:
+    - name: pilot
+      enabled: false
+      k8s:
+        resources:
+          requests:
+            cpu: 50m
+            memory: 300Mi
+  addonComponents:
+    prometheus:
+      enabled: true
+    grafana:
+      enabled: true
+    kiali:
+      enabled: true
+
+watchedNamespaces: istio-system, istioinaction

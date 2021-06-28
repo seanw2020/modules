@@ -56,9 +56,14 @@ resource "kubernetes_namespace" "istioinaction" {
 
 resource "helm_release" "istio-operator" {
   name       = "istio-operator"
+  # this is a git submodule
   chart      = "release/manifests/charts/istio-operator"
   namespace  = "istio-system"
   create_namespace = true
+
+  values = [
+    file("${path.module}/configure.yaml")
+  ]
 }
 
 # resource "helm_release" "istiod" {
