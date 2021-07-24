@@ -4,12 +4,12 @@ output "instance_ip_ubuntu" {
 }
 
 output "instance_ip_ubuntu_id" {
-  description = "The public ip for ssh access"
+  description = "The physical id of the instance, for ssm access"
   value       = aws_instance.my-instance-ubuntu.id
 }
 
 output "instance_ip_amazon_linux_id" {
-  description = "The public ip for ssh access"
+  description = "The physical id of the instance, for ssm access"
   value       = aws_instance.my-instance-amazon-linux.id
 }
 
