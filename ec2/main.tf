@@ -93,3 +93,15 @@ resource "aws_instance" "my-instance-amazon-linux" {
   vpc_security_group_ids = [ aws_security_group.allow-ssh-inbound.id ]
   iam_instance_profile = aws_iam_instance_profile.my_ssm_instance_profile.name
 }
+
+
+resource "aws_s3_bucket" "wingerts_foo" {
+  bucket = "wingerts-foo"
+  # Prevent accidental deletion of this S3 bucket
+  lifecycle {
+    prevent_destroy = true
+  }
+  versioning {
+    enabled = true
+  }
+}
